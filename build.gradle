@@ -1,0 +1,38 @@
+group 'ShopDirectProductPage'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.seleniumhq.selenium:selenium-java:3.5.2'
+    compile 'io.appium:java-client:5.0.0-BETA5'
+    compile 'org.testng:testng:6.11'
+}
+
+task test(group: 'Verification', dependsOn: 'testDesktop', overwrite: true)
+
+task testDesktop(type: Test, group: 'Verification') {
+    useTestNG()
+            {
+                suites 'src/test/resources/testing.xml'
+            }
+}
+
+task testAndroid(type: Test, group: 'Verification') {
+    useTestNG()
+
+    systemProperty "test.platform", "android"
+}
+
+task testIos(type: Test, group: 'Verification') {
+    useTestNG()
+
+    systemProperty "test.platform", "ios"
+}
+
