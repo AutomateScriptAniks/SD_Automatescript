@@ -1,6 +1,7 @@
 package generics;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,6 +15,7 @@ public class PageActions {
     private WebDriver driver;
     private Select dropDown;
     private Actions action;
+    private JavascriptExecutor jse;
 
     public PageActions(WebDriver driver) {
        this.driver=driver;
@@ -72,5 +74,28 @@ public class PageActions {
         driver.switchTo().frame(name);
     }
 
+    public void actionToMakeElementVisible(WebDriver driver,WebElement element) {
+        jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].scrollIntoView()", element);
+
+    }
+
+    public void scrollUp(WebDriver driver) {
+        jse = (JavascriptExecutor) driver;
+        jse.executeScript("scroll(0,-400);");
+
+    }
+
+    public void forcefullyClickInSection(WebDriver driver,WebElement element,By by)
+    {
+        jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click();", element.findElement(by));
+    }
+
+    public void forcefullyClick(WebDriver driver,WebElement element)
+    {
+        jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].click();", element);
+    }
 
 }

@@ -25,7 +25,7 @@ public class SetDriverCapabilities  {
             driver = new ChromeDriver();
 
         }
-        else if (chooseBrowser.equals("safari"))
+        else if (chooseBrowser.equals("headless"))
         {
                 driver = new SafariDriver();
         }

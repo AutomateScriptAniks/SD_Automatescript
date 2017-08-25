@@ -1,10 +1,13 @@
 package pages;
 
 import generics.PageActions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class HomePage extends PageBaseClass {
@@ -23,9 +26,11 @@ public class HomePage extends PageBaseClass {
     @FindBy(linkText = "My Account")
     WebElement myAccountButton;
 
+    @FindBy(id ="menuHome")
+    WebElement navSection;
 
-    public ProductListing chooseProduct()
-    {
+
+    public ProductListing chooseProduct() throws InterruptedException {
         actions.mouseHover(topNavHome);
         actions.clickOn(topNavColBeds);
 

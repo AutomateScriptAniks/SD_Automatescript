@@ -20,7 +20,8 @@ public abstract class TestBaseClass {
     {
         driver = new SetDriverCapabilities().setWebDriverCapabilites(browser);
         driver.manage().deleteAllCookies();
-        new Waits(driver).setUniversalImplicitWait((long) 10, TimeUnit.SECONDS);
+        new Waits(driver).setUniversalImplicitWait((long) 20, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
     }
 

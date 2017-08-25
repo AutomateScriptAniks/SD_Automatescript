@@ -1,0 +1,8 @@
+<suite name="MultiBrowserSuite" parallel="none">
+    <test name="TestChrome">
+        <parameter name="browser" value="Chrome"/>
+        <classes>
+            <class name="testSuits.RegressionTest"/>
+        </classes>
+    </test>
+</suite>

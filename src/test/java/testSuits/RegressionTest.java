@@ -21,7 +21,8 @@ public class RegressionTest extends TestBaseClass {
         productPage.checkReviews();
         //Then Credit Messaging and Multi-SKU warranty should be applicable
         productPage.selectProductOptions();
-        productPage.creditMessaging();
+        String updatedPrice = productPage.getUpdatedPrice();
+        assertTrue(productPage.goToCreditmessagingAfterSelectingProduct().contains(updatedPrice));
         productPage.addTOCart();
         String subItemPriceOnProductPage = productPage.getSubItemPrice();
         String itemNumberOnProductPage = productPage.getItemNumber();

@@ -20,7 +20,7 @@ task test(group: 'Verification', dependsOn: 'testDesktop', overwrite: true)
 task testDesktop(type: Test, group: 'Verification') {
     useTestNG()
             {
-                suites 'src/test/resources/testing.xml'
+                suites 'src/test/resources/testing-desktop.xml'
             }
 }
 

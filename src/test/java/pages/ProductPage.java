@@ -53,7 +53,7 @@ public class ProductPage extends PageBaseClass {
     WebElement creditMsgDialog;
 
     @FindBy(css="a[class='ui-dialog-titlebar-close ui-corner-all']")
-    WebElement close;
+    WebElement closeNone;
 
     @FindBy(className = "paymentTotal")
     WebElement payment;
@@ -70,6 +70,15 @@ public class ProductPage extends PageBaseClass {
     @FindBy(xpath = "//span[@class='original' and @rel='Furniture Insurance']")
     WebElement insuranceDropDown;
 
+    @FindBy(id = "sTCListOne")
+    WebElement creditMessagingBeforeProduct;
+
+    @FindBy(className = "totalPriceFigure")
+    WebElement updatedPrice;
+
+    @FindBy(xpath = "//span[contains(@class,'fullCashPrice')]")
+    WebElement updatedPriceOnCreditMessagingDialog;
+
 
 
     public String getItemNumber()
@@ -83,49 +92,36 @@ public class ProductPage extends PageBaseClass {
         actions.clickOn(review);
     }
 
-    public List<WebElement> getProductOptionList()
-    {
-        List<WebElement> productOptionList= actions.getListFrom(productOptions,By.tagName("li"));
-        return productOptionList;
-    }
-
     public void selectProductOptions() throws InterruptedException {
-        actions.clickOn(bedSizeDropDown);
+        actions.scrollUp(driver);
+        actions.forcefullyClick(driver,bedSizeDropDown);
         wait.setSpecificWait(driver,(long)10)
                 .until(ExpectedConditions.elementToBeClickable(bedSize));
+        actions.actionToMakeElementVisible(driver,bedSize);
         actions.clickOn(bedSize);
-
-        wait.setSpecificWait(driver,(long)10)
-                .until(ExpectedConditions.elementToBeClickable(storageOptionDropDown));
-        actions.clickOn(storageOptionDropDown);
+        actions.forcefullyClick(driver,storageOptionDropDown);
         wait.setSpecificWait(driver,(long)10)
                 .until(ExpectedConditions.elementToBeClickable(strorageOption));
         actions.clickOn(strorageOption);
-
-        wait.setSpecificWait(driver,(long)10)
-                .until(ExpectedConditions.elementToBeClickable(colorOption));
         actions.clickOn(colorOption);
-
-        wait.setSpecificWait(driver,(long)10)
-                .until(ExpectedConditions.elementToBeClickable(insuranceDropDown));
-        actions.clickOn(insuranceDropDown);
-        wait.setSpecificWait(driver,(long)10)
-                .until(ExpectedConditions.elementToBeClickable(warranty));
-        actions.clickOn(warranty);
+        actions.forcefullyClick(driver,insuranceDropDown);
+        actions.forcefullyClick(driver,warranty);
     }
 
-    public void creditMessaging() throws InterruptedException {
-        Thread.sleep(2000);
-        wait.setSpecificWait(driver,(long)10)
-                .until(ExpectedConditions.elementToBeClickable(creditMessaging));
+    public String goToCreditmessagingAfterSelectingProduct() throws InterruptedException {
+        Thread.sleep(1000);
+        actions.mouseHover(creditMessaging);
         actions.clickOn(creditMessaging);
         actions.gotoSection(creditMsgDialog);
-        creditMsgDialog.findElement(By.cssSelector("a[class='ui-dialog-titlebar-close ui-corner-all']")).click();
+        String productPrice = actions.gotoSection(updatedPrice).getText();
+        WebElement close = creditMsgDialog.findElement(By.cssSelector("a[class='ui-dialog-titlebar-close ui-corner-all']"));
+        actions.forcefullyClick(driver,close);
+        return productPrice;
     }
 
-    public String paymentBed()
+    public String getUpdatedPrice()
     {
-        return actions.gotoSection(payment).getText();
+        return actions.gotoSection(updatedPrice).getText();
     }
 
     public String getSubItemPrice()
@@ -137,8 +133,8 @@ public class ProductPage extends PageBaseClass {
     }
 
     public void addTOCart() throws InterruptedException {
-
-            actions.clickOn(addToBasket);
+        actions.mouseHover(addToBasket);
+        actions.clickOn(addToBasket);
     }
 
     public ShoppingCartPage confirmAddToBasket()
